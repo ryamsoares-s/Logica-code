@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "dev": "next dev"
+  },
   "dependencies": {
+    "next": "^15.3.2",
     "prompt-sync": "^4.2.0"
   }
 }
