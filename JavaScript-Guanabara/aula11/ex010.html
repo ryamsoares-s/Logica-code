@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Velocidade do Carro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Verificador de Velocidade</h2>
+
+  <label for="velocidade">Informe a velocidade do carro (km/h):</label><br>
+  <input type="number" id="velocidade" placeholder="Ex: 75"><br>
+  <button onclick="verificarVelocidade()">Verificar</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function verificarVelocidade() {
+      const velocidade = parseFloat(document.getElementById('velocidade').value);
+      const limite = 60;
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(velocidade)) {
+        resultado.innerHTML = 'Por favor, informe um valor válido.';
+        resultado.style.color = 'red';
+        return;
+      }
+
+      if (velocidade <= limite) {
+        resultado.innerHTML = `Tudo certo! Você está a ${velocidade} km/h.`;
+        resultado.style.color = 'green';
+      } else {
+        resultado.innerHTML = `Você está a ${velocidade} km/h. MULTADO por excesso de velocidade!`;
+        resultado.style.color = 'red';
+      }
+    }
+  </script>
+
+</body>
+</html>

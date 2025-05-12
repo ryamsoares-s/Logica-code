@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Verificador de Nacionalidade</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      input,
+      button {
+        padding: 8px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Verificador de Nacionalidade</h2>
+
+    <label for="inputPais">Informe sua nacionalidade:</label><br />
+    <input type="text" id="inputPais" placeholder="Ex: Bolívia" /><br />
+    <button onclick="verificarNacionalidade()">Verificar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+      function verificarNacionalidade() {
+        const paisDigitado = document.getElementById("inputPais").value.trim().toLowerCase();
+        const paisOrigem = "brasil";
+        const resultado = document.getElementById("resultado");
+
+        if (paisDigitado === "") {
+          resultado.innerHTML = "Por favor, informe sua nacionalidade.";
+          resultado.style.color = "red";
+          return;
+        }
+
+        if (paisDigitado === paisOrigem) {
+          resultado.innerHTML = `Você é natural do ${paisOrigem}.`;
+          resultado.style.color = "green";
+        } else {
+          resultado.innerHTML = `Você não é brasileiro(a), nasceu na(o) ${paisDigitado}.`;
+          resultado.style.color = "orange";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Primeiros passos com DOM</title>
+    <style>
+      div#area {
+        background-color: antiquewhite;
+        font: normal 20pt Arial;
+        color: black;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="area" onclick="clicar()" onmouseenter="entrar()">Clique aqui!</div>
+
+    <script>
+      function clicar() {
+        let a = document.getElementById("area");
+        a.innerText = "Clicou!";
+      }
+
+      function entrar() {
+        let a1 = document.getElementById("area");
+        a1.innerText = "Entrou!";
+      }
+    </script>
+  </body>
+</html>
