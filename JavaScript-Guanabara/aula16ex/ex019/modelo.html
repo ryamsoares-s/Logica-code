@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analisador de números</title>
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body>
+    <header>
+      <h1>ANALISADOR DE NÚMEROS</h1>
+    </header>
+
+    <section>
+      <div>
+        <p>
+          Informe um número:
+          <input type="number" name="txtn" id="txtn" />
+          <input type="button" value="Adicionar" onclick="adicionar()" />
+        </p>
+      </div>
+
+      <div>
+        <ul id="res"></ul>
+      </div>
+
+      <div>
+        <p id="res_manipulado"></p>
+        <input type="button" value="Confirmar" onclick="confirmar()" />
+      </div>
+    </section>
+
+    <footer>
+      <p>@rsoarees_400</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

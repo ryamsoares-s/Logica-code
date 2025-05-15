@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classificador de Nível Escolar</title>
+    <link rel="stylesheet" href="estilo.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Classificador de Nível Escolar</h1>
+    </header>
+
+    <main class="container">
+      <section class="box">
+        <div class="form-group">
+          <label for="txtnome">Nome:</label>
+          <input type="text" id="txtnome" placeholder="Ex: Ryam" />
+        </div>
+
+        <div class="form-group">
+          <label for="txtano">Ano de nascimento:</label>
+          <input type="number" id="txtano" placeholder="Ex: 1998" />
+        </div>
+
+        <button onclick="verificar()">Verificar</button>
+
+        <div id="res" class="resultado"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>@rsoarees_400</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
