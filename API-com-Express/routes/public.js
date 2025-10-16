@@ -23,9 +23,7 @@ router.post("/cadastro", async (req, res) => {
       },
     });
 
-    console.log(user.password, hashedPassword);
-
-    res.status(201).json({ message: "Usuário cadastrado com sucesso!", user });
+    res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
   } catch (error) {
     res
       .status(500)
