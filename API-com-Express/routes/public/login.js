@@ -5,11 +5,11 @@ import user from "../../models/user.js";
 
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const userInputValues = req.body;
 
-    const userFound = await user.findByEmailOrThrow(userInputValues);
+    const userFound = await user.findByEmail(userInputValues);
 
     const isMatch = await password.compare(
       userInputValues.password,
@@ -26,9 +26,7 @@ router.post("/login", async (req, res) => {
       .status(200)
       .json({ message: "Login realizado com sucesso.", token: newToken });
   } catch (error) {
-    res
-      .status(401)
-      .json({ message: "Erro ao fazer login.", error: error.message });
+    res.status(401).json({ error: error.message });
   }
 });
 

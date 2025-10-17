@@ -3,7 +3,7 @@ import user from "../../models/user.js";
 
 const router = express.Router();
 
-router.get("/usuarios", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const users = await user.listAll();
 

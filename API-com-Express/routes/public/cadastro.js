@@ -1,5 +1,6 @@
 import express from "express";
 import user from "../../models/user.js";
+import password from "../../models/password.js";
 
 const router = express.Router();
 
@@ -11,20 +12,28 @@ const methodNotAllowed = (req, res) => {
 };
 
 router
-  .route("/cadastro")
+  .route("/")
   .post(async (req, res) => {
     try {
       const userInputValues = req.body;
 
-      const newUser = await user.create(userInputValues);
+      const userFound = await user.findByEmail(userInputValues);
+      if (userFound) {
+        throw new Error("Este e-mail já está cadastrado.");
+      }
+
+      const hashedPassword = await password.hash(userInputValues.password);
+
+      const newUser = await user.create({
+        ...userInputValues,
+        password: hashedPassword,
+      });
 
       res
         .status(201)
         .json({ message: "Usuário cadastrado com sucesso!", user: newUser });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Erro ao cadastrar usuário.", error: error.message });
+      res.status(400).json({ error: error.message });
     }
   })
   .all(methodNotAllowed);
