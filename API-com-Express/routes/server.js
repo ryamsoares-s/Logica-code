@@ -17,8 +17,8 @@ publicRoutes.use("/login", Login);
 const privateRoutes = express.Router();
 privateRoutes.use("/usuarios", Usuarios);
 
-app.use("/api", publicRoutes);
-app.use("/api", auth, privateRoutes);
+app.use("/api/public", publicRoutes);
+app.use("/api/private", auth, privateRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Rota não encontrada." });
