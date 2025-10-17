@@ -7,30 +7,6 @@ const prisma = new PrismaClient();
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Rota de Cadastro
-router.post("/cadastro", async (req, res) => {
-  try {
-    const user = req.body;
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(user.password, salt);
-
-    await prisma.user.create({
-      data: {
-        name: user.name,
-        email: user.email,
-        password: hashedPassword,
-      },
-    });
-
-    res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Erro ao cadastrar usuário.", error: error.message });
-  }
-});
-
 // Rota de Login
 router.post("/login", async (req, res) => {
   try {
@@ -63,6 +39,12 @@ router.post("/login", async (req, res) => {
       .status(500)
       .json({ message: "Erro ao fazer login.", error: error.message });
   }
+});
+
+router.all("{*splat}", (req, res) => {
+  res
+    .status(405)
+    .json({ error: `Método ${req.method} não permitido nesta rota.` });
 });
 
 export default router;
