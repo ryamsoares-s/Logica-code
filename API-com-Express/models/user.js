@@ -1,18 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-import password from "./password.js";
 
 const prisma = new PrismaClient();
 
 async function create(userInputValues) {
-  const hashedPassword = await password.hash(userInputValues.password);
-
-  await findByEmail(userInputValues);
-
   const newUser = await prisma.user.create({
     data: {
       name: userInputValues.name,
       email: userInputValues.email,
-      password: hashedPassword,
+      password: userInputValues.password,
     },
     select: {
       id: true,
@@ -26,25 +21,11 @@ async function create(userInputValues) {
 }
 
 async function findByEmail(userInputValues) {
-  const userEmailExists = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { email: userInputValues.email },
   });
 
-  if (userEmailExists) {
-    throw new Error("Email já cadastrado.");
-  }
-}
-
-async function findByEmailOrThrow(userInputValues) {
-  const userFound = await prisma.user.findUnique({
-    where: { email: userInputValues.email },
-  });
-
-  if (!userFound) {
-    throw new Error("Usuário não encontrado.");
-  }
-
-  return userFound;
+  return user;
 }
 
 async function listAll() {
@@ -56,7 +37,6 @@ async function listAll() {
 const user = {
   create,
   findByEmail,
-  findByEmailOrThrow,
   listAll,
 };
 
