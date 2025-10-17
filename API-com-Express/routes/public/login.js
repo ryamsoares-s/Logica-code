@@ -11,7 +11,14 @@ router.post("/login", async (req, res) => {
 
     const userFound = await user.findByEmailOrThrow(userInputValues);
 
-    await password.compare(userInputValues.password, userFound.password);
+    const isMatch = await password.compare(
+      userInputValues.password,
+      userFound.password
+    );
+
+    if (!isMatch) {
+      throw new Error("E-mail ou senha inválidos.");
+    }
 
     const newToken = await token.generate({ id: userFound.id });
 
@@ -20,7 +27,7 @@ router.post("/login", async (req, res) => {
       .json({ message: "Login realizado com sucesso.", token: newToken });
   } catch (error) {
     res
-      .status(500)
+      .status(401)
       .json({ message: "Erro ao fazer login.", error: error.message });
   }
 });

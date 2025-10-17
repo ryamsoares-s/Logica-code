@@ -1,21 +1,34 @@
 import express from "express";
-import publicRoutesLogin from "./public/login.js";
-import publicRoutesCadastro from "./public/cadastro.js";
-import privateRoutesUsuarios from "./private/usuarios.js";
-
+import "dotenv/config.js";
+import Login from "./public/login.js";
+import Cadastro from "./public/cadastro.js";
+import Usuarios from "./private/usuarios.js";
 import auth from "../middlewares/auth.js";
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 
-app.use("/api", auth, privateRoutesUsuarios);
-app.use("/api", publicRoutesCadastro);
-app.use("/api", publicRoutesLogin);
+const publicRoutes = express.Router();
+publicRoutes.use("/cadastro", Cadastro);
+publicRoutes.use("/login", Login);
+
+const privateRoutes = express.Router();
+privateRoutes.use("/usuarios", Usuarios);
+
+app.use("/api", publicRoutes);
+app.use("/api", auth, privateRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Rota não encontrada." });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.use((error, req, res, next) => {
+  console.error(error.stack);
+  res.status(500).json({ message: "Ocorreu um erro interno no servidor." });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
