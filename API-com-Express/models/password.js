@@ -12,9 +12,7 @@ async function compare(passwordImputValues, hashedPasswordImputValues) {
     hashedPasswordImputValues
   );
 
-  if (!isMatch) {
-    throw new Error("Login inválido.");
-  }
+  return isMatch;
 }
 
 const password = {
