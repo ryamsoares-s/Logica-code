@@ -1,12 +1,11 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
+import user from "../../models/user.js";
 
-const prisma = new PrismaClient();
 const router = express.Router();
 
 router.get("/usuarios", async (req, res) => {
   try {
-    const users = await prisma.user.findMany({ omit: { password: true } });
+    const users = await user.listAll();
 
     res.status(200).json(users);
   } catch (error) {
@@ -14,6 +13,12 @@ router.get("/usuarios", async (req, res) => {
       .status(500)
       .json({ message: "Erro ao listar usuários.", error: error.message });
   }
+});
+
+router.all("{*splat}", (req, res) => {
+  res
+    .status(405)
+    .json({ error: `Método ${req.method} não permitido nesta rota.` });
 });
 
 export default router;

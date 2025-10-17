@@ -1,14 +1,14 @@
 import express from "express";
-import publicRoutesLogin from "./routes/public/login.js";
-import publicRoutesCadastro from "./routes/public/cadastro.js";
-import privateRoutes from "./routes/private.js";
+import publicRoutesLogin from "./public/login.js";
+import publicRoutesCadastro from "./public/cadastro.js";
+import privateRoutesUsuarios from "./private/usuarios.js";
 
-import auth from "./middlewares/auth.js";
+import auth from "../middlewares/auth.js";
 
 const app = express();
 app.use(express.json());
 
-app.use("/api", auth, privateRoutes);
+app.use("/api", auth, privateRoutesUsuarios);
 app.use("/api", publicRoutesCadastro);
 app.use("/api", publicRoutesLogin);
 
