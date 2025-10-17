@@ -1,14 +1,20 @@
 import bcrypt from "bcrypt";
 
-async function hash(password) {
+async function hash(passwordImputValues) {
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hashedPassword = await bcrypt.hash(passwordImputValues, salt);
   return hashedPassword;
 }
 
-async function compare(password, hashedPassword) {
-  const match = await bcrypt.compare(password, hashedPassword);
-  return match;
+async function compare(passwordImputValues, hashedPasswordImputValues) {
+  const isMatch = await bcrypt.compare(
+    passwordImputValues,
+    hashedPasswordImputValues
+  );
+
+  if (!isMatch) {
+    throw new Error("Login inválido.");
+  }
 }
 
 const password = {
