@@ -47,10 +47,17 @@ async function findByEmailOrThrow(userInputValues) {
   return userFound;
 }
 
+async function listAll() {
+  const users = await prisma.user.findMany({ omit: { password: true } });
+
+  return users;
+}
+
 const user = {
   create,
   findByEmail,
   findByEmailOrThrow,
+  listAll,
 };
 
 export default user;
