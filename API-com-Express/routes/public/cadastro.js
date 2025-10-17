@@ -14,11 +14,13 @@ router
   .route("/cadastro")
   .post(async (req, res) => {
     try {
-      const userImputValues = req.body;
+      const userInputValues = req.body;
 
-      await user.create(userImputValues);
+      const newUser = await user.create(userInputValues);
 
-      res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+      res
+        .status(201)
+        .json({ message: "Usuário cadastrado com sucesso!", user: newUser });
     } catch (error) {
       res
         .status(500)
